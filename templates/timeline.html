@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时间线</title>
+    <link rel="stylesheet" href="/static/css/pure-min.css">
+    <style type="text/css">
+    .todo-table {
+        margin: 0 auto;
+    }
+    .center {
+        text-align: center;
+    }
+    .wide {
+        wide: 50%;
+    }
+
+    </style>
+</head>
+<body class="center">
+<div class="center">
+    <a href="/">INDEX</a>
+    <a href="/todo">TODO</a>
+    <a href="/weibo">WEIBO</a>
+    <a href="/user">USER</a><br>
+</div>
+<h1>时间线</h1>
+{% for u in users %}
+@ <a href={{url_for('weibo.timeline_view', username=u.username)}}>{{ u.username }}</a>
+{% endfor %}
+<br><br>
+<form action="{{url_for('weibo.add')}}" method="post">
+    <input name="content">
+    <br>
+    <input class="pure-button pure-button-primary" type="submit" value="发微博">
+</form>
+<br><br>
+<!--{% for w in weibos %}-->
+<!--<div>-->
+<!--{{ w.content }} @ {{ w.user_id }} by {{ w.created_time }}-->
+<!--<form action="{{url_for('weibo.comment')}}" method="post">-->
+<!--<input type="hidden" name="weibo_id" value="{{ w.id }}">-->
+<!--<input name="content">-->
+<!--<input class="pure-button pure-button-primary" type="submit" value="评论">-->
+<!--</form>-->
+<!--<br>-->
+<!--{% for c in w.cs %}-->
+<!--&lt;!&ndash;{{ c.content }} @ {{ c.user_id }} by {{ c.created_time }} <br>下面把评论主的名字做成链接&ndash;&gt;-->
+<!--{{ c.content }} @ <a href={{url_for('weibo.timeline_view', username=c.user_id)}}>{{ c.user_id }}</a> by {{ c.created_time }} <br>-->
+<!--{% endfor %}-->
+<!--</div><br><br>-->
+<!--{% endfor %}    -->
+<table class="todo-table pure-table pure-table-horizontal pure-table-striped">
+    <tbody>
+    {% for w in weibos %}
+    <tr>
+        <td class="wide">
+
+                <br>{{ w.content }} <br> @ {{ w.user_id }} by {{ w.created_time }} <a href={{url_for('weibo.delete',item_id=w.id)}}>delete</a>
+                <br><br>
+                <form action="{{url_for('weibo.comment')}}" method="post">
+                    <input type="hidden" name="weibo_id" value="{{ w.id }}">
+                    <input name="content">
+                    <input class="pure-button pure-button-primary" type="submit" value="评论">
+                </form>
+
+
+        <!--</td>-->
+        <!--<td>-->
+
+                {% for c in w.cs %}
+                <!--{{ c.content }} @ {{ c.user_id }} by {{ c.created_time }} <br>下面把评论主的名字做成链接-->
+                {{ c.content }} @ <a href={{url_for('weibo.timeline_view', username=c.user_id)}}>{{ c.user_id }}</a>
+                <!--by {{ c.created_time }} -->
+                <a href={{url_for('weibo.comment_delete',item_id=c.id)}}>delete</a><br><br>
+                {% endfor %}<br>
+
+
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

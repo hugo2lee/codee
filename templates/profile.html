@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <link rel="stylesheet" href="/static/css/pure-min.css">
+    <style type="text/css">
+    .todo-table {
+        margin: 0 auto;
+    }
+    .center {
+        text-align: center;
+    }
+    </style>
+</head>
+<body class="center">
+    <div class="center">
+        <a href="/">INDEX</a>
+        <a href="/todo">TODO</a>
+        <a href="/weibo">WEIBO</a>
+        <a href="/user">USER</a><br>
+    </div>
+    <a href="{{url_for("user.out")}}">重新登陆</a>
+    <br>
+    <br>
+    <br>
+    <div>
+        id: {{ user.id }}   用户名： {{ user.username }}
+    </div>
+    <form action="{{url_for("user.update")}}" method="post">
+    <div>
+        修改密码：
+        <input name="password" value="{{ user.password }}">
+        <input class="pure-button pure-button-primary" type="submit" value="修改密码">
+    </div>
+    </form>
+
+</body>
+</html>

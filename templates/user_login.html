@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册与登录</title>
+        <!-- 静态文件放在 /static 文件夹中 -->
+    <!-- 引用路径是 /static/... -->
+    <link rel="stylesheet" href="/static/css/pure-min.css">
+    <style type="text/css">
+    .todo-table {
+        margin: 0 auto;
+    }
+    .center {
+        text-align: center;
+    }
+    </style>
+</head>
+<body class="center">
+    <div class="center">
+        <a href="/">INDEX</a>
+        <a href="/todo">TODO</a>
+        <a href="/weibo">WEIBO</a>
+        <a href="/user">USER</a><br>
+    </div>
+    <h1>USER</h1>
+    <form action="{{url_for("user.register")}}" method="post">
+        <input name="username" placeholder="username">
+        <br>
+        <input name="password" placeholder="password">
+        <br>
+        <input class="pure-button pure-button-primary" type="submit" value="注册">
+    </form>
+    <br>
+    <form action="{{url_for("user.login")}}" method="post">
+        <input name="username" placeholder="username">
+        <br>
+        <input name="password" placeholder="password">
+        <br>
+        <input class="pure-button pure-button-primary" type="submit" value="登录">
+    </form>
+</body>
+</html>

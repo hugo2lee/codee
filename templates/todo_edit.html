@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todo_edit</title>
+    <link rel="stylesheet" href="/static/css/pure-min.css">
+    <style type="text/css">
+    .todo-table {
+        margin: 0 auto;
+    }
+    .center {
+        text-align: center;
+    }
+    </style>
+</head>
+<body class="center">
+    <h1>修改 todo_task</h1>
+    <td>id:{{ t.id }}</td>
+    <td>user_id:{{ t.user_id }}</td>
+    <td>created_time:{{ t.created_time }}</td>
+    <form action="{{url_for("todo.update", todo_id=t.id)}}" method="post">
+        <input name="todo_task" value="{{ t.task }}">
+        <input class="pure-button pure-button-primary" type="submit" value="修改">
+    </form>
+</body>
+</html>
