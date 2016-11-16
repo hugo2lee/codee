@@ -87,7 +87,6 @@ def chat_add():
     red.publish(chat_channel, message)
     return 'OK'
 
-
 # if __name__ == '__main__':
 #     config = dict(
 #         debug=True,
