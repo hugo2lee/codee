@@ -17,3 +17,6 @@ def now():
     value = time.localtime(int(time.time()))
     dt = time.strftime(format, value)
     return dt
+
+log('sfdsfdsf')
+

@@ -5,6 +5,8 @@ from flask import render_template
 from todo import main as todo_routes
 from user import main as user_routes
 from weibo import main as weibo_routes
+from chatroom import main as chatroom_routes
+import redis
 
 app = Flask(__name__)
 # 设置 secret_key 来使用 flask 自带的 session
@@ -29,6 +31,9 @@ app.register_blueprint(weibo_routes,
 app.register_blueprint(user_routes,
                        url_prefix='/user')
 
+app.register_blueprint(chatroom_routes,
+                       url_prefix='/chatroom')
+
 
 @app.route('/')
 def index():
@@ -37,12 +42,11 @@ def index():
         return '<h1 align="center"  style="color:black ; font-size:120px">请按右上角三个点↗↗↗<br>选自带浏览器打开</h1><br>'' \
         ''<h1 align="center"  style="color:red ; font-size:300px">F*CK 腾讯</h1> <br> '
 
-    elif 'yes' == request.args.get('nsukey','yes'):
+    elif 'yes' == request.args.get('nsukey', 'yes'):
         # log('request.headers', request.args)
         return render_template('codee.html')
 
     return '<h1 align="center"  style="color:black ; font-size:100px">请手动输入网址："codee.cc"</h1><br> '
-
 
 
 @app.errorhandler(404)
@@ -61,6 +65,8 @@ if __name__ == '__main__':
         host='0.0.0.0',
         port=80,
     )
+    # red = redis.Redis(host='localhost', port=6379, db=0)
+    # log('redis', red)
     app.run(**config)
     # app.run() 开始运行服务器
     # 所以你访问下面的网址就可以打开网站了
