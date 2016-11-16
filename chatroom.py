@@ -11,7 +11,8 @@ from flask import Blueprint
 from flask import abort
 from flask import session
 from models import User
-from main import red
+from main import redis_run
+
 
 '''
 # 使用 gunicorn 启动 main:app(文件名:flsak名) -b 设置host和port
@@ -26,6 +27,7 @@ gunicorn --log-level debug --access-logfile gunicorn.log --worker-class=gevent -
 # 所以要先打开 redis 服务器
 # red = redis.Redis(host='localhost', port=6379, db=0)
 # log('redis', red)
+red = redis_run()
 
 # app = flask.Flask(__name__)
 # app.secret_key = 'key'
