@@ -5,14 +5,8 @@ from flask import render_template
 from todo import main as todo_routes
 from user import main as user_routes
 from weibo import main as weibo_routes
-from chatroom import main as chatroom_routes
-import redis
+from chat_room import main as chat_room_routes
 
-
-def redis_run():
-    red = redis.Redis(host='localhost', port=6379, db=0)
-    log('redis', red)
-    return red
 
 app = Flask(__name__)
 # 设置 secret_key 来使用 flask 自带的 session
@@ -37,7 +31,7 @@ app.register_blueprint(weibo_routes,
 app.register_blueprint(user_routes,
                        url_prefix='/user')
 
-app.register_blueprint(chatroom_routes,
+app.register_blueprint(chat_room_routes,
                        url_prefix='/chatroom')
 
 
