@@ -14,8 +14,8 @@ from models import User
 
 
 '''
-# 使用 gunicorn 启动
-gunicorn --worker-class=gevent -t 9999 main:app(文件名:flsak名)
+# 使用 gunicorn 启动 main:app(文件名:flsak名) -b 设置host和port
+gunicorn --worker-class=gevent -t 9999 main:app -b 0.0.0.0:80
 # 开启 debug 输出
 gunicorn --log-level debug --worker-class=gevent -t 999 redis_chat81:app
 # 把 gunicorn 输出写入到 gunicorn.log 文件中
@@ -24,8 +24,8 @@ gunicorn --log-level debug --access-logfile gunicorn.log --worker-class=gevent -
 
 # 连接上本机的 redis 服务器
 # 所以要先打开 redis 服务器
-red = redis.Redis(host='localhost', port=6379, db=0)
-log('redis', red)
+# red = redis.Redis(host='localhost', port=6379, db=0)
+# log('redis', red)
 
 # app = flask.Flask(__name__)
 # app.secret_key = 'key'
@@ -60,6 +60,8 @@ def subscribe():
 @main.route('/')
 def index_view():
     log('chatroom')
+    red = redis.Redis(host='localhost', port=6379, db=0)
+    log('redis', red)
     return flask.render_template('chatroom.html')
 
 
