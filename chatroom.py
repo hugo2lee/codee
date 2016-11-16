@@ -11,7 +11,7 @@ from flask import Blueprint
 from flask import abort
 from flask import session
 from models import User
-
+from main import red
 
 '''
 # 使用 gunicorn 启动 main:app(文件名:flsak名) -b 设置host和port
@@ -60,8 +60,6 @@ def subscribe():
 @main.route('/')
 def index_view():
     log('chatroom')
-    red = redis.Redis(host='localhost', port=6379, db=0)
-    log('redis', red)
     return flask.render_template('chatroom.html')
 
 
