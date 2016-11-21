@@ -62,12 +62,11 @@ if __name__ == '__main__':
     # host 参数指定为 '0.0.0.0' 可以让别的机器访问你的代码
     config = dict(
         debug=True,
-        host='0.0.0.0',
-        port=80,
+        host='127.0.0.1',
+        port=3000,
     )
     # red = redis.Redis(host='localhost', port=6379, db=0)
     # log('redis', red)
     app.run(**config)
     # app.run() 开始运行服务器
-    # 所以你访问下面的网址就可以打开网站了
-    # http://127.0.0.1:2000/
+

@@ -15,8 +15,7 @@ from models import User
 
 
 '''
-# 使用 gunicorn 启动 main:app(文件名:flsak名) -b 设置host和port
-gunicorn --worker-class=gevent -t 9999 main:app -b 0.0.0.0:80
+# 使用 gunicorn 启动 main:app(文件名:flsak名) -b 设置host和portgunicorn --worker-class=gevent -t 9999 main:app -b 0.0.0.0:80
 # 开启 debug 输出
 gunicorn --log-level debug --worker-class=gevent -t 999 redis_chat81:app
 # 把 gunicorn 输出写入到 gunicorn.log 文件中
@@ -25,7 +24,7 @@ gunicorn --log-level debug --access-logfile gunicorn.log --worker-class=gevent -
 
 # 连接上本机的 redis 服务器
 # 所以要先打开 redis 服务器
-red = redis.Redis(host='localhost', port=6379, db=0)
+red = redis.Redis(host='127.0.0.1', port=6379, db=0)
 log('redis', red)
 
 
@@ -48,7 +47,7 @@ def stream():
     pubsub.subscribe(chat_channel)
     # 监听订阅的广播
     for message in pubsub.listen():
-        print(message)
+        log('steam', message)
         if message['type'] == 'message':
             data = message['data'].decode('utf-8')
             # 用 sse 返回给前端
@@ -85,9 +84,10 @@ def chat_add():
         'created_time': current_time(),
     }
     message = json.dumps(r, ensure_ascii=False)
-    log('debug', message)
+    # log('debug', message)
     # 用 redis 发布消息
     red.publish(chat_channel, message)
+    log('red publish', chat_channel, message)
     return 'OK'
 
 # if __name__ == '__main__':
